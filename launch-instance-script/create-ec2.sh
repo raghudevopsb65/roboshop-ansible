@@ -9,7 +9,7 @@ IAM_INSTANCE_PROFILE="Arn=arn:aws:iam::633788536644:instance-profile/role-for-se
 if [ -z "${1}" ] ; then
   ENV=""
 else
-  ENV="-$ENV"
+  ENV="-$1"
 fi
 COMPONENT=all
 create_ec2() {
