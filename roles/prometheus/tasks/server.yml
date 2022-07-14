@@ -19,3 +19,21 @@
     port: 9090
     delay: 10
     timeout: 15
+
+- name: Prometheus Alerts Manager Configuration
+  ansible.builtin.template:
+    src: alertmanager.yml
+    dest: /opt/alertmanager/alertmanager.
+
+- name: Restart alert manager
+  ansible.builtin.systemd:
+    name: alertmanager
+    state: restarted
+
+- name: Check for alert manager service running or not
+  ansible.builtin.wait_for:
+    host: 0.0.0.0
+    port: 9093
+    delay: 10
+    timeout: 15
+
