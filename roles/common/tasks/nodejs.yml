@@ -21,4 +21,8 @@
     name: common
     tasks_from: systemd
 
+- name: Filebeat SetUP
+  ansible.builtin.include_role:
+    name: elk
+    tasks_from: filebeat
 
