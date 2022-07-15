@@ -1,5 +1,5 @@
 filebeat.inputs:
-- type: file
+- type: log
   enabled: true
   paths:
     - /var/log/{{COMPONENT}}.log
