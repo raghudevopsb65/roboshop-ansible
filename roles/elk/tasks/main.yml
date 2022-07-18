@@ -4,3 +4,9 @@
     tasks_from: rsyslog
   when: SETUP_TYPE == "rsyslog"
 
+- name: Setup LOGSTASH Config
+  ansible.builtin.include_role:
+    name: elk
+    tasks_from: logstash
+  when: SETUP_TYPE == "logstash"
+
