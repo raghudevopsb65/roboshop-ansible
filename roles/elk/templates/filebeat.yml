@@ -3,11 +3,21 @@ filebeat.inputs:
   enabled: true
   json.keys_under_root: true
   paths:
-    - /var/log/{{COMPONENT}}.log
+    - {{LOG_FILE}}
 
+{% if  LOG_TYPE == "json" %}
 output.elasticsearch:
   index: "{{COMPONENT}}-%{+yyyy.MM.dd}"
   hosts: ["elasticsearch.roboshop.internal:9200"]
+setup.ilm.enabled: false
+setup.template.name: "{{COMPONENT}}-%{+yyyy.MM.dd}"
+setup.template.pattern: "{{COMPONENT}}-%{+yyyy.MM.dd}"
+{% endif %}
+
+{% if  LOG_TYPE == "raw" %}
+output.logstash:
+  hosts: ["elasticsearch.roboshop.internal:5044"]
+{% endif %}
 
 # --------------------------
 filebeat.config.modules:
@@ -23,6 +33,4 @@ processors:
   - add_docker_metadata: ~
   - add_kubernetes_metadata: ~
 
-setup.ilm.enabled: false
-setup.template.name: "{{COMPONENT}}-%{+yyyy.MM.dd}"
-setup.template.pattern: "{{COMPONENT}}-%{+yyyy.MM.dd}"
+
