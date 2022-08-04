@@ -22,7 +22,7 @@
     dest: /home/roboshop/catalogue/rds-combined-ca-bundle.pem
     mode: '0400'
     owner: roboshop
-    group: roboshop  
+    group: roboshop
   when: DOCDB_ENDPOINT != "null"
 
 - name: SystemD Setup for {{ COMPONENT }} Service
